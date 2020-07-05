@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
 
 import logo from './wheel.svg';
 import './App.css';
@@ -37,6 +38,11 @@ class App extends Component {
       });
       console.log('index:', index);
       console.log('color index:', ci);
+
+
+
+      // $('#text').addClassClass={bounceIn};
+                    console.log('Added class');
     }
   }
 
@@ -54,10 +60,16 @@ class App extends Component {
 
         <div id="quote-box" className="wrapper"
         style={{ background: color }}>
+
           <div className="col-6 box p-5 rounded">
               {
                 quote && (
-                  <div id="text" className="mb-4">
+                  <div id="text" className="mb-4"
+                  onAnimationEnd={()=> {
+                    // $('#text').removeClass=bounceIn;
+                    console.log('removed class');
+                  }
+                  }>
                     <cite><p>{quote.quote}</p></cite>
                     <p id="author" className="d-block text-right">—{quote.author}</p>
                   </div>
@@ -68,17 +80,42 @@ class App extends Component {
               href={quote&&`${tweetURL}"${quote.quote}"—${quote.author} `} 
               target="_blank" rel="noopener noreferrer">
               <i className="fab fa-twitter"></i> Tweet</a>
-              <button id="new-quote" className="btn btn-primary" onClick={this.RandomizeIndex}>New Quote</button>
+
+
+
+              <button id="new-quote" className="btn btn-primary" onClick={this.RandomizeIndex}
+              
+              >New Quote</button>
+
+
+
+
+
+
             </div>
           </div>
         </div>
       </div>
     );
   }
-
-  
 }
 
+
+$(document).ready(function () {
+  console.log('Im ready');
+  $('.App-logo').css({
+    'transform' : 'rotate(9373deg)',
+  });
+  console.log('Done?');
+  setTimeout(() => {
+
+    console.log("World!");
+    $('.App-logo').css({
+    'animation' : 'App-logo-spin infinite 10s linear' 		
+    });
+  }, 5500);
+  $("#text").addClass('animate__animated animate__zoomIn')
+});
 
 
 export default App;

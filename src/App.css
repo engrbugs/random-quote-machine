@@ -20,7 +20,25 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    -webkit-transition: all 6s cubic-bezier(0,.99,.44,.99);
+    -moz-transition:    all 6 cubic-bezier(0,.99,.44,.99);
+    -o-transition:      all 6s cubic-bezier(0,.99,.44,.99);
+    -ms-transition:     all 6s cubic-bezier(0,.99,.44,.99);
+    transition:         all 6s cubic-bezier(0,.99,.44,.99);	
+
+    /* animation: spin 3s linear infinite;
+    transition: all 1s; */
+    /* animation-delay: 3s; */
+    /* animation: App-logo-spin infinite 10s linear; */
+
+  }
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 }
 
@@ -53,12 +71,20 @@ img {
 }
 
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+@keyframes spin {
+    0%{
+      transform: rotate(0deg)
+     }
+     75% {
+       transform: rotate(920deg)
+     }
+     76%,
+     77% {
+       transform: rotate(920deg)
+     }
+    100%{
+      transform: rotate(1440deg)
+     }
 }
+
 
