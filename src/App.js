@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import 'animate.css/animate.css';
 
 import logo from './wheel.svg';
 import './App.css';
@@ -11,22 +12,27 @@ const COLOR = [ '#ee5253', '#ff9f43', '#c8d6e5', '#576574', '#ff6b6b', '#8395a7'
                 '#2ecc71', '#16a085', '#2c3e50', '#f1c40f', '#8e44ad', '#6c5ce7', '#2d3436',
                 '#0984e3', '#fab1a0', '#ffeaa7', '#00b894', '#e84393', '#40739e', '#c23616']
 
+
 class App extends Component {
   state = {
     quotes: [],
     index: 0,
-    color: "#282c34"
+    color: "#282c34",
+    animationEnter: 'bounceIn',
+    animationLeave: 'bounceOut',
+    durationEnter: 1000,
+    durationLeave: 1000,
   }
 
   componentDidMount() {
-    fetch(QUOTES).then(el => el.json())
-    .then(el => {
+    fetch(QUOTES).then(res => res.json())
+    .then(res => {
       this.setState({
-        quotes: el.quotes
+        quotes: res.quotes
       }, this.RandomizeIndex);
     })
   }
-
+  
   RandomizeIndex = () => {
     const { quotes } = this.state;
     if (quotes.length > 0) {
@@ -36,15 +42,13 @@ class App extends Component {
         index: index,
         color: COLOR[ci]
       });
-      console.log('index:', index);
-      console.log('color index:', ci);
-
-
-
-      // $('#text').addClassClass={bounceIn};
-                    console.log('Added class');
+      $("#text").addClass('animate__animated animate__zoomIn');
     }
   }
+
+  onAnimationEnd = () => {
+    $("#text").removeClass('animate__animated animate__zoomIn');
+  };
 
   render (){
     const { quotes, index, color } = this.state;
@@ -61,37 +65,22 @@ class App extends Component {
         <div id="quote-box" className="wrapper"
         style={{ background: color }}>
 
-          <div className="col-6 box p-5 rounded">
-              {
-                quote && (
-                  <div id="text" className="mb-4"
-                  onAnimationEnd={()=> {
-                    // $('#text').removeClass=bounceIn;
-                    console.log('removed class');
-                  }
-                  }>
-                    <cite><p>{quote.quote}</p></cite>
-                    <p id="author" className="d-block text-right">—{quote.author}</p>
-                  </div>
-                )
-              }
+          <div className="col-6 box p-5 rounded"
+          onChange={this.handleChange}>
+            { quote && (
+              <div id="text" className="mb-4" onAnimationEnd={this.onAnimationEnd}>
+                <cite><p>{quote.quote}</p></cite>
+                <p id="author" className="d-block text-right">—{quote.author}</p>
+              </div>
+            )}
             <div className="d-flex justify-content-between">
               <a id="tweet-quote" className="btn btn-primary"
               href={quote&&`${tweetURL}"${quote.quote}"—${quote.author} `} 
               target="_blank" rel="noopener noreferrer">
               <i className="fab fa-twitter"></i> Tweet</a>
-
-
-
-              <button id="new-quote" className="btn btn-primary" onClick={this.RandomizeIndex}
-              
+              <button id="new-quote" className="btn btn-primary" 
+              onClick={this.RandomizeIndex}
               >New Quote</button>
-
-
-
-
-
-
             </div>
           </div>
         </div>
@@ -100,22 +89,15 @@ class App extends Component {
   }
 }
 
-
 $(document).ready(function () {
-  console.log('Im ready');
   $('.App-logo').css({
     'transform' : 'rotate(9373deg)',
   });
-  console.log('Done?');
   setTimeout(() => {
-
-    console.log("World!");
     $('.App-logo').css({
     'animation' : 'App-logo-spin infinite 10s linear' 		
     });
   }, 5500);
-  $("#text").addClass('animate__animated animate__zoomIn')
 });
-
 
 export default App;

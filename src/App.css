@@ -25,12 +25,6 @@
     -o-transition:      all 6s cubic-bezier(0,.99,.44,.99);
     -ms-transition:     all 6s cubic-bezier(0,.99,.44,.99);
     transition:         all 6s cubic-bezier(0,.99,.44,.99);	
-
-    /* animation: spin 3s linear infinite;
-    transition: all 1s; */
-    /* animation-delay: 3s; */
-    /* animation: App-logo-spin infinite 10s linear; */
-
   }
   @keyframes App-logo-spin {
     from {
@@ -67,9 +61,13 @@ img {
   justify-content: center;
   -webkit-transition: background-color 1s ease-in; /* Safari */
           transition: background-color 1s ease-in;
-
 }
 
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    display: block;
+}
 
 @keyframes spin {
     0%{
@@ -86,5 +84,3 @@ img {
       transform: rotate(1440deg)
      }
 }
-
-
